@@ -201,7 +201,7 @@ void init()
 	UCB1BR1 = 0; //
 
 	UCB1CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
-	//UCB1IE |= UCRXIE; // Enable USCI_B1 RX interrupt
+	UCB1IE |= UCRXIE; // Enable USCI_B1 RX interrupt
 }
 
 /************************************************************************/
@@ -218,10 +218,8 @@ void init()
 /************************************************************************/
 void Send_Byte(unsigned char out)
 {
-	  while (!(UCB1IFG & UCTXIFG)); 	// USCI_A0 TX buffer ready?
+	  while (!(UCB1IFG & UCTXIFG)); 	// USCI_B1 TX buffer ready?
 	  UCB1TXBUF = out; 					// Transmit message
-	  while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
-	  UCB1IFG &= ~ UCRXIFG; 			//clear flag
 
 }
 
@@ -240,6 +238,10 @@ void Send_Byte(unsigned char out)
 unsigned char Get_Byte()
 {
 	Send_Byte(0xFF);				//clear buffer
+
+    while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
+	UCB1IFG &= ~ UCRXIFG; 			//clear flag
+
 	return UCB1RXBUF;
 }
 
@@ -1078,5 +1080,31 @@ void WREN_AAI_Check()
 		    	/* option: insert a display to view error on LED? */
 
 	}
+}
+
+
+
+#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+#pragma vector=USCI_B1_VECTOR
+__interrupt void USCI_B1_ISR(void)
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(USCI_B1_VECTOR))) USCI_B1_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+  volatile unsigned int i;
+
+  switch(__even_in_range(UCA0IV,4))
+  {
+    case 0: break;                          // Vector 0 - no interrupt
+    case 2:                                 // Vector 2 - RXIFG
+      while (!(UCA0IFG&UCTXIFG));           // USCI_A0 TX buffer ready?
+
+
+      break;
+    case 4: break;                          // Vector 4 - TXIFG
+    default: break;
+  }
 }
 

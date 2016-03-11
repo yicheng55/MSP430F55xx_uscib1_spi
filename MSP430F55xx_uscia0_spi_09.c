@@ -134,8 +134,8 @@ int main(void)
   init();
   for(i=50;i>0;i--);                        // Wait for slave to initialize
 
-  temp = Jedec_ID_Read();
-  //temp = Read_ID(0);
+  //temp = Jedec_ID_Read();
+  temp = Read_ID(0);
   printf("ID_Read= %lx ,size=%x\n", temp, sizeof(temp));
 
   while(1);
