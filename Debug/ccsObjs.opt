@@ -1,0 +1,1 @@
+"./MSP430F55xx_uscia0_spi_09.obj" "./MX25R1035Fdriver.obj" "../lnk_msp430f5529.cmd" -l"libc.a" -l"libmath.a" 

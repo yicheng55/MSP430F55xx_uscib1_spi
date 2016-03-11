@@ -78,17 +78,30 @@
 //   Built with CCSv4 and IAR Embedded Workbench Version: 4.21
 //******************************************************************************
 
-#include <msp430.h>
+#include    <stdio.h>
+#include    <string.h>
+#include 	<msp430.h>
 
 unsigned char MST_Data,SLV_Data;
-unsigned char temp;
+unsigned long temp;
+
+
+extern  void init();
+extern  void Send_Byte(unsigned char out);
+extern  unsigned char Get_Byte();
+extern  void Poll_SO();
+extern  void CE_High();
+extern  void CE_Low();
+extern  unsigned long Jedec_ID_Read();
+
 
 int main(void)
 {
   volatile unsigned int i;
 
-  WDTCTL = WDTPW+WDTHOLD;                   // Stop watchdog timer
 
+  WDTCTL = WDTPW+WDTHOLD;                   // Stop watchdog timer
+/*
   P1OUT |= 0x02;                            // Set P1.0 for LED
                                             // Set P1.1 for slave reset
   P1DIR |= 0x03;                            // Set P1.0-2 to output direction
@@ -103,13 +116,12 @@ int main(void)
   UCA0BR1 = 0;                              //
   UCA0MCTL = 0;                             // No modulation
   UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
-  UCA0IE |= UCRXIE;                         // Enable USCI_A0 RX interrupt
+  //UCA0IE |= UCRXIE;                         // Enable USCI_A0 RX interrupt
 
   P1OUT &= ~0x02;                           // Now with SPI signals initialized,
   P1OUT |= 0x02;                            // reset slave
-
-  for(i=50;i>0;i--);                        // Wait for slave to initialize
-
+*
+  /*
   MST_Data = 0x01;                          // Initialize data values
   SLV_Data = 0x00;                          //
 
@@ -117,6 +129,16 @@ int main(void)
   UCA0TXBUF = MST_Data;                     // Transmit first character
 
   __bis_SR_register(LPM0_bits + GIE);       // CPU off, enable interrupts
+  */
+  printf("Test...\n");
+  init();
+  for(i=50;i>0;i--);                        // Wait for slave to initialize
+
+  temp = Jedec_ID_Read();
+  //temp = Read_ID(0);
+  printf("ID_Read= %lx ,size=%x\n", temp, sizeof(temp));
+
+  while(1);
 }
 
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
