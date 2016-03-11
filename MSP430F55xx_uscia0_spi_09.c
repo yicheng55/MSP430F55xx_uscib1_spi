@@ -93,6 +93,7 @@ extern  void Poll_SO();
 extern  void CE_High();
 extern  void CE_Low();
 extern  unsigned long Jedec_ID_Read();
+extern  unsigned char Read_Status_Register();
 
 
 int main(void)
@@ -134,8 +135,9 @@ int main(void)
   init();
   for(i=50;i>0;i--);                        // Wait for slave to initialize
 
-  //temp = Jedec_ID_Read();
-  temp = Read_ID(0);
+  temp = Jedec_ID_Read();
+  //temp = Read_ID(0);
+  //temp = Read_Status_Register();
   printf("ID_Read= %lx ,size=%x\n", temp, sizeof(temp));
 
   while(1);

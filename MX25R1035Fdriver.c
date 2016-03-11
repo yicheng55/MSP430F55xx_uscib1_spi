@@ -201,7 +201,7 @@ void init()
 	UCB1BR1 = 0; //
 
 	UCB1CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
-	UCB1IE |= UCRXIE; // Enable USCI_B1 RX interrupt
+	//UCB1IE |= UCRXIE; // Enable USCI_B1 RX interrupt
 }
 
 /************************************************************************/
