@@ -8,7 +8,7 @@ CG_TOOL_ROOT := c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1
 
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
-"./MSP430F55xx_uscia0_spi_09.obj" \
+"./MSP430F55xx_uscib1_spi_09.obj" \
 "./MX25R1035Fdriver.obj" \
 "../lnk_msp430f5529.cmd" \
 -l"libc.a" \
@@ -110,40 +110,40 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-MSP430F55xx_uscia0_spi_09.out \
+MSP430F55xx_uscib1_spi_09.out \
 
 EXE_OUTPUTS__QUOTED += \
-"MSP430F55xx_uscia0_spi_09.out" \
+"MSP430F55xx_uscib1_spi_09.out" \
 
 BIN_OUTPUTS += \
-MSP430F55xx_uscia0_spi_09.hex \
+MSP430F55xx_uscib1_spi_09.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"MSP430F55xx_uscia0_spi_09.hex" \
+"MSP430F55xx_uscib1_spi_09.hex" \
 
 
 # All Target
-all: MSP430F55xx_uscia0_spi_09.out
+all: MSP430F55xx_uscib1_spi_09.out
 
 # Tool invocations
-MSP430F55xx_uscia0_spi_09.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+MSP430F55xx_uscib1_spi_09.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MSP430 Linker'
-	"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/bin/cl430" -vmspx --abi=eabi --data_model=restricted --advice:power="all" -g --define=__MSP430F5529__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=full -z -m"MSP430F55xx_uscia0_spi_09.map" --heap_size=320 --stack_size=320 --cinit_hold_wdt=on -i"c:/ti/ccsv6/ccs_base/msp430/include" -i"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/lib" -i"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/include" -i"c:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="MSP430F55xx_uscia0_spi_09_linkInfo.xml" --rom_model -o "MSP430F55xx_uscia0_spi_09.out" $(ORDERED_OBJS)
+	"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/bin/cl430" -vmspx --abi=eabi --data_model=restricted --advice:power="all" -g --define=__MSP430F5529__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 --printf_support=full -z -m"MSP430F55xx_uscib1_spi_09.map" --heap_size=320 --stack_size=320 --cinit_hold_wdt=on -i"c:/ti/ccsv6/ccs_base/msp430/include" -i"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/lib" -i"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/include" -i"c:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="MSP430F55xx_uscib1_spi_09_linkInfo.xml" --rom_model -o "MSP430F55xx_uscib1_spi_09.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-MSP430F55xx_uscia0_spi_09.hex: $(EXE_OUTPUTS)
+MSP430F55xx_uscib1_spi_09.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: MSP430 Hex Utility'
-	"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/bin/hex430" --memwidth=8 --romwidth=8 -o "MSP430F55xx_uscia0_spi_09.hex" $(EXE_OUTPUTS__QUOTED)
+	"c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1/bin/hex430" --memwidth=8 --romwidth=8 -o "MSP430F55xx_uscib1_spi_09.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "MSP430F55xx_uscia0_spi_09.pp" "MX25R1035Fdriver.pp" 
-	-$(RM) "MSP430F55xx_uscia0_spi_09.obj" "MX25R1035Fdriver.obj" 
+	-$(RM) "MSP430F55xx_uscib1_spi_09.pp" "MX25R1035Fdriver.pp" 
+	-$(RM) "MSP430F55xx_uscib1_spi_09.obj" "MX25R1035Fdriver.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
