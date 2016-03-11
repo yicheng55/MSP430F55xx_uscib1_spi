@@ -2,7 +2,7 @@
 <link_info>
    <banner>MSP430 Linker PC v4.4.1</banner>
    <copyright>Copyright (c) 2003-2014 Texas Instruments Incorporated</copyright>
-   <link_time>0x56e2582a</link_time>
+   <link_time>0x56e25b71</link_time>
    <link_errors>0x0</link_errors>
    <output_file>MSP430F55xx_uscia0_spi_09.out</output_file>
    <entry_point>
@@ -1374,8 +1374,8 @@
          <size>0x1c</size>
          <input_file_ref idref="fl-61"/>
       </object_component>
-      <object_component id="oc-1df">
-         <name>.text:Get_Byte</name>
+      <object_component id="oc-1d9">
+         <name>.text:Send_Byte</name>
          <load_address>0x145b6</load_address>
          <run_address>0x145b6</run_address>
          <size>0x16</size>
@@ -1465,8 +1465,8 @@
          <size>0xe</size>
          <input_file_ref idref="fl-62"/>
       </object_component>
-      <object_component id="oc-1d9">
-         <name>.text:Send_Byte</name>
+      <object_component id="oc-1df">
+         <name>.text:Get_Byte</name>
          <load_address>0x146aa</load_address>
          <run_address>0x146aa</run_address>
          <size>0xc</size>
@@ -3507,14 +3507,14 @@
          <name>.debug_line</name>
          <load_address>0x2bb</load_address>
          <run_address>0x2bb</run_address>
-         <size>0x52</size>
+         <size>0x58</size>
          <input_file_ref idref="fl-3"/>
       </object_component>
       <object_component id="oc-1e3">
          <name>.debug_line</name>
-         <load_address>0x30d</load_address>
-         <run_address>0x30d</run_address>
-         <size>0x56</size>
+         <load_address>0x313</load_address>
+         <run_address>0x313</run_address>
+         <size>0x50</size>
          <input_file_ref idref="fl-3"/>
       </object_component>
       <object_component id="oc-1ee">
@@ -9706,7 +9706,7 @@
             <object_component_ref idref="oc-27e"/>
             <object_component_ref idref="oc-4d6"/>
             <object_component_ref idref="oc-57d"/>
-            <object_component_ref idref="oc-1df"/>
+            <object_component_ref idref="oc-1d9"/>
             <object_component_ref idref="oc-24b"/>
             <object_component_ref idref="oc-26a"/>
             <object_component_ref idref="oc-3df"/>
@@ -9719,7 +9719,7 @@
             <object_component_ref idref="oc-54c"/>
             <object_component_ref idref="oc-484"/>
             <object_component_ref idref="oc-20d"/>
-            <object_component_ref idref="oc-1d9"/>
+            <object_component_ref idref="oc-1df"/>
             <object_component_ref idref="oc-441"/>
             <object_component_ref idref="oc-1ea"/>
             <object_component_ref idref="oc-1d3"/>
@@ -15735,7 +15735,7 @@
       </symbol>
       <symbol id="sm-3bc">
          <name>Get_Byte</name>
-         <value>0x145b6</value>
+         <value>0x146aa</value>
          <object_component_ref idref="oc-1df"/>
       </symbol>
       <symbol id="sm-3bd">
@@ -15750,7 +15750,7 @@
       </symbol>
       <symbol id="sm-3bf">
          <name>Send_Byte</name>
-         <value>0x146aa</value>
+         <value>0x145b6</value>
          <object_component_ref idref="oc-1d9"/>
       </symbol>
       <symbol id="sm-3d5">

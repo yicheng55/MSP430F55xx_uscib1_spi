@@ -221,6 +221,9 @@ void Send_Byte(unsigned char out)
 	  while (!(UCB1IFG & UCTXIFG)); 	// USCI_B1 TX buffer ready?
 	  UCB1TXBUF = out; 					// Transmit message
 
+      while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
+	  UCB1IFG &= ~ UCRXIFG; 			//clear flag
+
 }
 
 /************************************************************************/
@@ -238,9 +241,6 @@ void Send_Byte(unsigned char out)
 unsigned char Get_Byte()
 {
 	Send_Byte(0xFF);				//clear buffer
-
-    while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
-	UCB1IFG &= ~ UCRXIFG; 			//clear flag
 
 	return UCB1RXBUF;
 }
