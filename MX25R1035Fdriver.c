@@ -115,6 +115,7 @@ WREN_AAI_Check				Checks to see if WEL and AAI mode is set
 /* Function Prototypes */
 
 void init();
+void SST_Init();
 void Send_Byte(unsigned char out);
 unsigned char Get_Byte();
 void Poll_SO();
@@ -133,6 +134,7 @@ void WRDI();
 void EBSY();
 void DBSY();
 unsigned char Read_ID(unsigned char ID_addr);
+unsigned char Read_RES();
 unsigned long Jedec_ID_Read(); 
 unsigned char Read(unsigned long Dst);
 void Read_Cont(unsigned long Dst, unsigned long no_bytes);
@@ -203,6 +205,20 @@ void init()
 	UCB1CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
 	//UCB1IE |= UCRXIE; // Enable USCI_B1 RX interrupt
 }
+
+
+
+void SST_Init(void)
+{
+	int i;
+	init();
+	  for(i=50;i>0;i--);                        // Wait for slave to initialize
+	WREN();
+	EWSR();
+	WRSR(0x02,0);
+	DBSY();
+}
+
 
 /************************************************************************/
 /* PROCEDURE: Send_Byte							*/
@@ -560,6 +576,20 @@ unsigned char Read_ID(unsigned char ID_addr)
     Send_Byte(0x00);		/* send address */
 	Send_Byte(0x00);		/* send address */
 	Send_Byte(ID_addr);		/* send address - either 00H or 01H */
+	byte = Get_Byte();		/* receive byte */
+	CE_High();			/* disable device */
+	return byte;
+}
+
+
+unsigned char Read_RES()
+{
+	unsigned char byte;
+	CE_Low();			/* enable device */
+	Send_Byte(0xAB);		/* send Read Electronic Signature (RES) command (90h or ABh) */
+    Send_Byte(0x00);		/* send address */
+	Send_Byte(0x00);		/* send address */
+	Send_Byte(0x00);		/* send address - either 00H or 01H */
 	byte = Get_Byte();		/* receive byte */
 	CE_High();			/* disable device */
 	return byte;

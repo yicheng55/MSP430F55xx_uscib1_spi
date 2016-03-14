@@ -86,13 +86,15 @@ unsigned char MST_Data,SLV_Data;
 unsigned long temp;
 
 
-extern  void init();
+extern  void SST_Init();
 extern  void Send_Byte(unsigned char out);
 extern  unsigned char Get_Byte();
 extern  void Poll_SO();
 extern  void CE_High();
 extern  void CE_Low();
 extern  unsigned long Jedec_ID_Read();
+extern  unsigned char Read_ID(unsigned char ID_addr);
+extern  unsigned char Read_RES();
 extern  unsigned char Read_Status_Register();
 
 
@@ -132,12 +134,13 @@ int main(void)
   __bis_SR_register(LPM0_bits + GIE);       // CPU off, enable interrupts
   */
   printf("Test...\n");
-  init();
-  for(i=50;i>0;i--);                        // Wait for slave to initialize
+  SST_Init();
 
-  temp = Jedec_ID_Read();
+
+  //temp = Jedec_ID_Read();
   //temp = Read_ID(0);
-  //temp = Read_Status_Register();
+  //temp = Read_RES();
+  temp = Read_Status_Register();
   printf("ID_Read= %lx ,size=%x\n", temp, sizeof(temp));
 
   while(1);
