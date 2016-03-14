@@ -86,16 +86,47 @@ unsigned char MST_Data,SLV_Data;
 unsigned long temp;
 
 
+/* Function Prototypes */
+
+extern  void init();
 extern  void SST_Init();
 extern  void Send_Byte(unsigned char out);
 extern  unsigned char Get_Byte();
 extern  void Poll_SO();
 extern  void CE_High();
 extern  void CE_Low();
-extern  unsigned long Jedec_ID_Read();
-extern  unsigned char Read_ID(unsigned char ID_addr);
-extern  unsigned char Read_RES();
+extern  void Hold_Low();
+extern  void Unhold();
+extern  void WP_Low();
+extern  void UnWP();
 extern  unsigned char Read_Status_Register();
+extern  unsigned char Read_Status_Register1();
+extern  void EWSR();
+extern  void WRSR(unsigned long word, unsigned char byteOrword);
+extern  void WREN();
+extern  void WRDI();
+extern  void EBSY();
+extern  void DBSY();
+extern  unsigned int Read_ID(unsigned char ID_addr);
+extern  unsigned char Read_RES();
+extern  unsigned long Jedec_ID_Read();
+extern  unsigned char Read(unsigned long Dst);
+extern  void Read_Cont(unsigned long Dst, unsigned long no_bytes);
+extern  unsigned char HighSpeed_Read(unsigned long Dst);
+extern  void HighSpeed_Read_Cont(unsigned long Dst, unsigned long no_bytes);
+extern  void Byte_Program(unsigned long Dst, unsigned char byte);
+extern  void Auto_Add_IncA(unsigned long Dst, unsigned char byte1, unsigned char byte2);
+extern  void Auto_Add_IncB(unsigned char byte1, unsigned char byte2);
+extern  void Auto_Add_IncA_EBSY(unsigned long Dst, unsigned char byte1, unsigned char byte2);
+extern  void Auto_Add_IncB_EBSY(unsigned char byte1, unsigned char byte2);
+extern  void Chip_Erase();
+extern  void Sector_Erase(unsigned long Dst);
+extern  void Block_Erase_32K(unsigned long Dst);
+extern  void Block_Erase_64K(unsigned long Dst);
+extern  void Wait_Busy();
+extern  void Wait_Busy_AAI();
+extern  void WREN_Check();
+extern  void WREN_AAI_Check();
 
 
 int main(void)
@@ -138,10 +169,17 @@ int main(void)
 
 
   //temp = Jedec_ID_Read();
-  //temp = Read_ID(0);
+  temp = Read_ID(0);
   //temp = Read_RES();
-  temp = Read_Status_Register();
+  //temp = Read_Status_Register();
   printf("ID_Read= %lx ,size=%x\n", temp, sizeof(temp));
+
+  Chip_Erase();
+  WREN();
+  Byte_Program(0x10, 0xa5);
+  temp = Read(0x10);
+  printf("Byte_Program= %lx ,size=%x\n", temp, sizeof(temp));
+
 
   while(1);
 }

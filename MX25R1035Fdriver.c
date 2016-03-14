@@ -133,7 +133,7 @@ void WREN();
 void WRDI();
 void EBSY();
 void DBSY();
-unsigned char Read_ID(unsigned char ID_addr);
+unsigned int Read_ID(unsigned char ID_addr);
 unsigned char Read_RES();
 unsigned long Jedec_ID_Read(); 
 unsigned char Read(unsigned long Dst);
@@ -213,10 +213,12 @@ void SST_Init(void)
 	int i;
 	init();
 	  for(i=50;i>0;i--);                        // Wait for slave to initialize
+	/*
 	WREN();
 	EWSR();
 	WRSR(0x02,0);
 	DBSY();
+	*/
 }
 
 
@@ -240,6 +242,17 @@ void Send_Byte(unsigned char out)
       while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
 	  UCB1IFG &= ~ UCRXIFG; 			//clear flag
 
+}
+
+
+unsigned char Send_Byte1(unsigned char out)
+{
+	  while (!(UCB1IFG & UCTXIFG)); 	// USCI_B1 TX buffer ready?
+	  UCB1TXBUF = out; 					// Transmit message
+
+      while (!(UCB1IFG & UCRXIFG)); 	// wait until something receives. This also means that sending is completed
+	  UCB1IFG &= ~ UCRXIFG; 			//clear flag
+	  return UCB1RXBUF;
 }
 
 /************************************************************************/
@@ -406,6 +419,8 @@ unsigned char Read_Status_Register()
 	CE_Low();			/* enable device */
 	Send_Byte(0x05);		/* send RDSR command */
 	byte = Get_Byte();		/* receive byte */
+	//Send_Byte1(0x05);
+	//byte = Send_Byte1(0x00);
 	CE_High();			/* disable device */
 	return byte;
 }
@@ -568,15 +583,17 @@ void DBSY()
 /*		byte:	ID1(Manufacture's ID = BFh or Device ID = 8Ch)	*/
 /*									*/
 /************************************************************************/
-unsigned char Read_ID(unsigned char ID_addr)
+unsigned int Read_ID(unsigned char ID_addr)
 {
-	unsigned char byte;
+	unsigned int byte;
 	CE_Low();			/* enable device */
 	Send_Byte(0x90);		/* send read ID command (90h or ABh) */
     Send_Byte(0x00);		/* send address */
 	Send_Byte(0x00);		/* send address */
 	Send_Byte(ID_addr);		/* send address - either 00H or 01H */
 	byte = Get_Byte();		/* receive byte */
+	byte = byte << 8;
+	byte += Get_Byte();		/* receive byte */
 	CE_High();			/* disable device */
 	return byte;
 }
