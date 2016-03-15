@@ -103,6 +103,7 @@ static void sst_CE(void)
 {
 #if SST_CE_MODE == 0
     SST_CE_POUT &= ~CE_Mask;
+	//SST_CE_POUT &=  ~CE;
 #else
     SST_ADDR_EN_POUT &= ~SST_ADDR_EN_BIT;
 #endif
@@ -113,6 +114,7 @@ static void sst_nCE(void)
 {
 #if SST_CE_MODE == 0
     SST_CE_POUT |= SST_CE_DEVMASK;
+	//SST_CE_POUT |= CE;
 #else
     SST_ADDR_EN_POUT |= SST_ADDR_EN_BIT;
 #endif
@@ -164,6 +166,8 @@ uint16_t sst25vf_Init(void)
     case SST25VF016_ID:
         break;
     case SST25VF032_ID:
+        break;
+    case MX25R1035F_ID:
         break;
     default:
         return(SST_INVALID_ID);

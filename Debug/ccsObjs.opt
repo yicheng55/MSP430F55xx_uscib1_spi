@@ -1,1 +1,1 @@
-"./MSP430F55xx_uscib1_spi_09.obj" "./MX25R1035Fdriver.obj" "./SST25VF.obj" "./spi.obj" "../lnk_msp430f5529.cmd" -l"libc.a" -l"libmath.a" 
+"./FlashSPAN_SST25VF.obj" "./MSP430F55xx_uscib1_spi_09.obj" "./MX25R1035Fdriver.obj" "./SST25VF.obj" "./spi.obj" "../lnk_msp430f5529.cmd" -l"libc.a" -l"libmath.a" 

@@ -8,6 +8,7 @@ CG_TOOL_ROOT := c:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.1
 
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
+"./FlashSPAN_SST25VF.obj" \
 "./MSP430F55xx_uscib1_spi_09.obj" \
 "./MX25R1035Fdriver.obj" \
 "./SST25VF.obj" \
@@ -144,8 +145,8 @@ MSP430F55xx_uscib1_spi_09.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "MSP430F55xx_uscib1_spi_09.pp" "MX25R1035Fdriver.pp" "SST25VF.pp" "spi.pp" 
-	-$(RM) "MSP430F55xx_uscib1_spi_09.obj" "MX25R1035Fdriver.obj" "SST25VF.obj" "spi.obj" 
+	-$(RM) "FlashSPAN_SST25VF.pp" "MSP430F55xx_uscib1_spi_09.pp" "MX25R1035Fdriver.pp" "SST25VF.pp" "spi.pp" 
+	-$(RM) "FlashSPAN_SST25VF.obj" "MSP430F55xx_uscib1_spi_09.obj" "MX25R1035Fdriver.obj" "SST25VF.obj" "spi.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

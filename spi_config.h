@@ -47,6 +47,13 @@
 /// Byte that is transmitted during read operations
 #define DUMMY_CHAR    (0xFF)
 
+
+#define SCLK BIT3 	//P4.3 master Clock out
+#define SOMI BIT2 	//P4.2 master in
+#define SIMO BIT1 	//P4.1 master out
+#define CE   BIT0 	//P4.0 Chip Enable line
+
+
 ///\}
 
 #endif

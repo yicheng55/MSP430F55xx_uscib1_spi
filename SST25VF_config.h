@@ -34,8 +34,8 @@
 // One-hot CE mode (SST_CE_MODE == 0)
 //--------------------------------------------------------------------------------------------------
 // bit locations of each CE for each SST chip
-#define SST_CE_DEV0_BIT     BIT6
-#define SST_CE_DEV1_BIT     BIT7
+#define SST_CE_DEV0_BIT     BIT0
+#define SST_CE_DEV1_BIT     0    // disabled
 #define SST_CE_DEV2_BIT     0    // disabled
 #define SST_CE_DEV3_BIT     0    // disabled
 #define SST_CE_DEV4_BIT     0    // disabled
@@ -44,7 +44,7 @@
 #define SST_CE_DEV7_BIT     0    // disabled
 
 /// CE output port where the CE pins are located
-#define SST_CE_POUT         P1OUT
+#define SST_CE_POUT         P4OUT
 
 //--------------------------------------------------------------------------------------------------
 // Addressed CE Mode (SST_CE_MODE == 1)

@@ -49,6 +49,8 @@
 extern "C" {
 #endif
 
+
+#include <stdint.h>
 #include "SST25VF_config.h"
 
 //==================================================================================================
@@ -94,6 +96,9 @@ extern "C" {
 #define SST25VF080_ID       0xBF8E
 #define SST25VF016_ID       0xBF41
 #define SST25VF032_ID       0xBF4A
+
+#define MX25R1035F_ID       0xC211
+
 ///\}
 
 /// \name Device JEDEC IDs
@@ -106,6 +111,8 @@ extern "C" {
 
 /// \name Device Sizes
 ///\{
+
+#define SST25VF010_SIZE     0x00020000L
 #define SST25VF040_SIZE     0x00080000L
 #define SST25VF080_SIZE     0x00100000L
 #define SST25VF016_SIZE     0x00200000L

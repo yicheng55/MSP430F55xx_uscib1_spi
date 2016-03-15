@@ -49,9 +49,14 @@
 #include "spi.h"
 #include "spi_internal.h"
 
+
 //--------------------------------------------------------------------------------------------------
 void spiInit(uint8_t spi_mode)
 {
+	P4SEL |= SOMI + SIMO + SCLK; 	// P4.2,1,3 use special function
+	P4DIR |= CE; 					//Set P4.0 Gpio as chip enable
+	P4OUT |= CE;
+
     SPI_UCCTL1 |= UCSWRST;
     SPI_UCCTL0 = spi_mode + UCMSB + UCMST + UCSYNC;
     SPI_UCCTL1 = (SPI_CLK_SRC << 6) + UCSWRST;
