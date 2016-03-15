@@ -99,7 +99,7 @@ extern  void Hold_Low();
 extern  void Unhold();
 extern  void WP_Low();
 extern  void UnWP();
-extern  unsigned char Read_Status_Register();
+extern  unsigned int Read_Status_Register();
 extern  unsigned char Read_Status_Register1();
 extern  void EWSR();
 extern  void WRSR(unsigned long word, unsigned char byteOrword);
@@ -128,10 +128,12 @@ extern  void Wait_Busy_AAI();
 extern  void WREN_Check();
 extern  void WREN_AAI_Check();
 
+extern  unsigned char upper_128[];
+
 
 int main(void)
 {
-  volatile unsigned int i;
+  volatile unsigned int i, byte;
 
 
   WDTCTL = WDTPW+WDTHOLD;                   // Stop watchdog timer
@@ -176,10 +178,24 @@ int main(void)
 
   Chip_Erase();
   WREN();
-  Byte_Program(0x10, 0xa5);
-  temp = Read(0x10);
-  printf("Byte_Program= %lx ,size=%x\n", temp, sizeof(temp));
 
+  for (i=0;i< 100;i++)
+  {
+	  Byte_Program(i, i+0xa5);
+	  Wait_Busy();
+  }
+
+  //temp = Read(0x10);
+  //Read_Cont(0, 100);
+  for (i=0;i< 20;i++)
+  {
+	  byte = Read(i);
+	  printf("%lx ", byte);
+	  //printf("%lx ", upper_128[i]);
+  }
+
+  temp = Read_Status_Register();
+  printf("\nRead_Status_Register= %lx ,size=%x\n", temp, sizeof(temp));
 
   while(1);
 }

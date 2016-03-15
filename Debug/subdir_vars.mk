@@ -8,26 +8,38 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../MSP430F55xx_uscib1_spi_09.c \
-../MX25R1035Fdriver.c 
+../MX25R1035Fdriver.c \
+../SST25VF.c \
+../spi.c 
 
 OBJS += \
 ./MSP430F55xx_uscib1_spi_09.obj \
-./MX25R1035Fdriver.obj 
+./MX25R1035Fdriver.obj \
+./SST25VF.obj \
+./spi.obj 
 
 C_DEPS += \
 ./MSP430F55xx_uscib1_spi_09.pp \
-./MX25R1035Fdriver.pp 
+./MX25R1035Fdriver.pp \
+./SST25VF.pp \
+./spi.pp 
 
 C_DEPS__QUOTED += \
 "MSP430F55xx_uscib1_spi_09.pp" \
-"MX25R1035Fdriver.pp" 
+"MX25R1035Fdriver.pp" \
+"SST25VF.pp" \
+"spi.pp" 
 
 OBJS__QUOTED += \
 "MSP430F55xx_uscib1_spi_09.obj" \
-"MX25R1035Fdriver.obj" 
+"MX25R1035Fdriver.obj" \
+"SST25VF.obj" \
+"spi.obj" 
 
 C_SRCS__QUOTED += \
 "../MSP430F55xx_uscib1_spi_09.c" \
-"../MX25R1035Fdriver.c" 
+"../MX25R1035Fdriver.c" \
+"../SST25VF.c" \
+"../spi.c" 
 
 

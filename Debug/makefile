@@ -10,6 +10,8 @@ ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
 "./MSP430F55xx_uscib1_spi_09.obj" \
 "./MX25R1035Fdriver.obj" \
+"./SST25VF.obj" \
+"./spi.obj" \
 "../lnk_msp430f5529.cmd" \
 -l"libc.a" \
 -l"libmath.a" \
@@ -142,8 +144,8 @@ MSP430F55xx_uscib1_spi_09.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "MSP430F55xx_uscib1_spi_09.pp" "MX25R1035Fdriver.pp" 
-	-$(RM) "MSP430F55xx_uscib1_spi_09.obj" "MX25R1035Fdriver.obj" 
+	-$(RM) "MSP430F55xx_uscib1_spi_09.pp" "MX25R1035Fdriver.pp" "SST25VF.pp" "spi.pp" 
+	-$(RM) "MSP430F55xx_uscib1_spi_09.obj" "MX25R1035Fdriver.obj" "SST25VF.obj" "spi.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

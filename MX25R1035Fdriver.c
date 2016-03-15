@@ -125,7 +125,7 @@ void Hold_Low();
 void Unhold();
 void WP_Low();
 void UnWP();
-unsigned char Read_Status_Register();
+unsigned int Read_Status_Register();
 unsigned char Read_Status_Register1();
 void EWSR();
 void WRSR(unsigned long word, unsigned char byteOrword);
@@ -196,10 +196,10 @@ void init()
 	//UCB1CTL0 &= ~(UCCKPH + UCCKPL + UC7BIT);
 	//UCB1CTL0 |= UCMSB + UCMST + UCMODE_0 + UCSYNC;
 
-	UCB1CTL0 |= UCMST+UCSYNC+UCCKPL+UCMSB;    // 3-pin, 8-bit SPI master
+	UCB1CTL0 |= UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master
 
 	UCB1CTL1 |= UCSSEL_2; // SMCLK
-	UCB1BR0 = 0x02; // /2
+	UCB1BR0 = 0x04; // /2
 	UCB1BR1 = 0; //
 
 	UCB1CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
@@ -413,14 +413,19 @@ void UnWP()
 /* Returns:								*/
 /*		byte							*/
 /************************************************************************/
-unsigned char Read_Status_Register()
+unsigned int Read_Status_Register()
 {
-	unsigned char byte = 0;
+	unsigned int byte = 0;
 	CE_Low();			/* enable device */
 	Send_Byte(0x05);		/* send RDSR command */
+	//Send_Byte(0x15);		/* send RDCR command */
+	//Send_Byte(0x00);		/* send RDSR command */
 	byte = Get_Byte();		/* receive byte */
+	//byte = byte << 8;
+	//byte += Get_Byte();		/* receive byte */
 	//Send_Byte1(0x05);
 	//byte = Send_Byte1(0x00);
+	while (UCB1STAT & UCBUSY);
 	CE_High();			/* disable device */
 	return byte;
 }
@@ -972,10 +977,12 @@ void Auto_Add_IncB_EBSY(unsigned char byte1, unsigned char byte2)
 /*		Nothing							*/
 /************************************************************************/
 void Chip_Erase()
-{						
+{
+	//WREN();
 	CE_Low();				/* enable device */
 	Send_Byte(0x60);			/* send Chip Erase command (60h or C7h) */
 	CE_High();				/* disable device */
+	Wait_Busy();
 }
 
 /************************************************************************/
