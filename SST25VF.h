@@ -151,6 +151,10 @@ extern "C" {
     void sst25vf_WriteSlow(uint32_t startAddr, const uint8_t *data, uint16_t nBytes);
     void sst25vf_AAIStart(uint32_t startAddr, const uint8_t D0, const uint8_t D1);
     void sst25vf_AAICont(const uint8_t D0, const uint8_t D1);
+
+    void mx25rxx_Write(uint32_t startAddr, const uint8_t *data, uint16_t nBytes);
+    void mx25rxx_WritePP(uint32_t startAddr, const uint8_t *data, uint16_t nBytes);
+
 #define sst25vf_4kErase(A)        sst25vf_xErase((A),SST_ERASE4k)
 #define sst25vf_32kErase(A)        sst25vf_xErase((A),SST_ERASE32k)
 #define sst25vf_64kErase(A)        sst25vf_xErase((A),SST_ERASE64k)

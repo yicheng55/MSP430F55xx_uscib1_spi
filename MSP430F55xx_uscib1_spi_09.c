@@ -22,12 +22,13 @@ int main(void)
 	unsigned long temp;
 	uint32_t address;
 
-
+	printf("\n");
 	for(i=0; i< 128 ; i++)
 	{
-		upper_128[i] = 0x20+i;
+		upper_128[i] = 0x30+i;
+		printf("%x ", upper_128[i]);
 	}
-
+	printf("\n");
 
 	address = 0x0;
 	//sst25vf_Init();
@@ -46,6 +47,7 @@ int main(void)
 	{
 		printf("%x ", upper_128[i]);
 	}
+	printf("\n");
 
 
 	temp = sst25vf_RDSR();

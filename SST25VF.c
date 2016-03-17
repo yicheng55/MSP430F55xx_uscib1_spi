@@ -322,6 +322,89 @@ void sst25vf_AAICont(const uint8_t D0, const uint8_t D1)
     sst_nCE();
 }
 
+
+//--------------------------------------------------------------------------------------------------
+/**  For MX25R1035F SPI memory.
+ *	 Page Program (PP) instruction
+ *	 The device programs only the last 256 data bytes sent to the device. The last address byte (the 8 least significant address bits, A7-A0) should be set to 0 for 256 bytes page program.
+ *	 The sequence of issuing PP instruction is: CS# goes low¡÷ sending PP instruction code¡÷ 3-byte address on SI¡÷ at least 1-byte on data on SI¡÷ CS# goes high.
+**/
+//--------------------------------------------------------------------------------------------------
+void mx25rxx_Write(uint32_t startAddr, const uint8_t *data, uint16_t nBytes)
+{
+    uint16_t i;
+
+    // If odd start address
+    if (startAddr & 0x01)
+    {
+        // write 1 byte
+        sst25vf_WriteByte(startAddr, data[0]);
+        startAddr++;
+        nBytes--;
+        data++;
+    }
+
+    if (nBytes == 0)
+    {
+        return; // only one byte. End
+    }
+
+    i = 0;
+    // Write pairs of bytes aligned to even addresses (AAI)
+    if (nBytes >= 2)
+    {
+        //sst25vf_AAIStart(startAddr, data[i], data[i + 1]);
+        //i += 2;
+        //nBytes -= 2;
+        //sst25vf_StallBusy();
+
+        while (nBytes > 0)
+        {
+        	if( nBytes > 256)
+        	{
+        		mx25rxx_WritePP(startAddr+i, data+i, 256);
+                i += 256;
+                nBytes -= 256;
+        	}
+        	else
+        	{
+        		mx25rxx_WritePP(startAddr+i, data+i, nBytes );
+                i += nBytes;
+                nBytes -= nBytes;
+        	}
+            //startAddr += i;
+            sst25vf_StallBusy();
+        }
+        sst25vf_WRDI();
+        sst25vf_StallBusy();
+    }
+
+    // if one byte remaining
+    if (nBytes)
+    {
+        // write 1 byte
+        startAddr += i;
+        sst25vf_WriteByte(startAddr, data[i]);
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+void mx25rxx_WritePP(uint32_t startAddr, const uint8_t *data, uint16_t nBytes)
+{
+    uint16_t i;
+    sst25vf_WREN();
+    sst_CE();
+    spiSendByte(SST_WRBYTE);
+    SendAddr(startAddr);
+    for(i=0; i < nBytes; i++ )
+    {
+        spiSendByte(*data+i);			//Write data to memory
+    	//spiSendByte(data[i]);			//Test point.
+    }
+    sst_nCE();
+}
+
+
 //--------------------------------------------------------------------------------------------------
 void sst25vf_ChipErase(void)
 {

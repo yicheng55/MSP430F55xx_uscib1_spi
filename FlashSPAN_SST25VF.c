@@ -211,7 +211,8 @@ RES_t flashSPAN_Write(uint32_t address, uint8_t *data, uint16_t nBytes)
         {
             // overflows to the next device
             sst25vf_SetCurrentDevice(device);
-            sst25vf_Write(address, data, maxNbytes);
+            //sst25vf_Write(address, data, maxNbytes);
+            mx25rxx_Write(address, data, maxNbytes);
             nBytes -= maxNbytes; // decrement the number of bytes accessed
             data += maxNbytes; // increment the data pointer
             address = 0;
@@ -221,7 +222,8 @@ RES_t flashSPAN_Write(uint32_t address, uint8_t *data, uint16_t nBytes)
         {
             // finish up write
             sst25vf_SetCurrentDevice(device);
-            sst25vf_Write(address, data, nBytes);
+            //sst25vf_Write(address, data, nBytes);
+            mx25rxx_Write(address, data, nBytes);
             break;
         }
     }
