@@ -59,7 +59,7 @@ extern "C" {
 
 /// \name Status Register Bits
 ///\{
-#define SST_BUSY    0x01
+#define SST_BUSY       0x01
 #define SST_WEL        0x02
 #define SST_BP0        0x04
 #define SST_BP1        0x08

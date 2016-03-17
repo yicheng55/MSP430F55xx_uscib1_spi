@@ -42,7 +42,7 @@
 **/
 
 /// SPI Clock division. Must be 4 or greater
-#define SPI_CLK_DIV        4 ///< \hideinitializer
+#define SPI_CLK_DIV        2 //,4 ///< \hideinitializer
 
 /// Byte that is transmitted during read operations
 #define DUMMY_CHAR    (0xFF)

@@ -113,6 +113,7 @@ RES_t flashSPAN_Init(void)
             flashSPAN.DeviceBlocks[i] = (SST25VF032_SIZE / FLASH_BLOCKSIZE);
             flashSPAN.BlockCount += (SST25VF032_SIZE / FLASH_BLOCKSIZE);
             break;
+
         default:
             return(RES_FAIL);
         }

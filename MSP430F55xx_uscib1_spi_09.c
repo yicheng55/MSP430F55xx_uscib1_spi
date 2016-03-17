@@ -16,13 +16,30 @@ unsigned char upper_128[128];
 
 int main(void)
 {
-	int	i;
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+
+	int	i, ret ,ret1;
 	unsigned long temp;
 	uint32_t address;
 
+
+	for(i=0; i< 128 ; i++)
+	{
+		upper_128[i] = 0x20+i;
+	}
+
+
 	address = 0x0;
 	//sst25vf_Init();
-	flashSPAN_Init();
+	ret = flashSPAN_Init();
+	//printf("\nret = %d \n",ret);
+	ret1 = flashSPAN_EraseAll();
+	//printf("ret = %d \n",ret);
+
+	for(i=0; i< 50 ; i++);
+	flashSPAN_Write(address, upper_128 , sizeof(upper_128));
+
+	memset(upper_128,0x00,sizeof(upper_128));
 	flashSPAN_Read(address, upper_128 , sizeof(upper_128));
 
 	for(i=0; i< 128 ; i++)
@@ -32,6 +49,6 @@ int main(void)
 
 
 	temp = sst25vf_RDSR();
-	printf("\nRead_Status_Register= %lx ,size=%x\n", temp, sizeof(temp));
+	//printf("\nRead_Status_Register= %lx ,size=%x\n", temp, sizeof(temp));
 	return  0;
 }

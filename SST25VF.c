@@ -41,7 +41,9 @@
 * \author Alex Mykyta
 **/
 
-#include <stdint.h>
+#include 	<stdint.h>
+#include    <stdio.h>
+#include    <string.h>
 
 //#include "msp430_xc.h"
 #include 	<msp430.h>
@@ -174,7 +176,7 @@ uint16_t sst25vf_Init(void)
     }
     sst25vf_WRSR(0x00);
     sst25vf_DBSY();
-
+    printf("id = %x \n",id);
     return(id);
 }
 
@@ -327,6 +329,7 @@ void sst25vf_ChipErase(void)
     sst_CE();
     spiSendByte(SST_CHIPERASE);
     sst_nCE();
+    //for(int i=0; i< 50 ; i++);
     sst25vf_StallBusy();
 }
 
@@ -354,6 +357,7 @@ uint16_t sst25vf_RDID()
     result <<= 8;
     result |= spiGetByte();
     sst_nCE();
+
     return(result);
 }
 
